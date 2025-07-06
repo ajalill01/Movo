@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(cors());
 app.use(sanitize);
 
+const categoryRoutes = require('./backend/routes/category-routes');
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -29,7 +30,8 @@ const globalLimiter = rateLimit({
 app.use(globalLimiter);
 
 
-// app.use('/api/auth', require('./backend/routes/auth-route'));
+app.use('/api/auth', require('./backend/routes/auth-route'));
+app.use('/api/categories', categoryRoutes);
 // app.use('/api/brands', require('./backend/routes/brand-route'));
 // app.use('/api/cars', require('./backend/routes/car-route'));
 // app.use('/api/products', require('./backend/routes/product-route'));
