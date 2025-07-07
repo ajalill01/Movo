@@ -11,6 +11,11 @@ const adminSchema = new mongoose.Schema({
       type: String,
       required: true,
       minlength: 6, 
+    },
+        resetPassword: {
+        code: String,
+        expiresAt: Date,
+        attempts: { type: Number, default: 0 }
     }
 },{timestamps : true});
 
