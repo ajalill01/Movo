@@ -148,8 +148,9 @@ nav{
     display: flex;
     align-items: center;
    width: 100%;
-   justify-content: flex-end;
+   justify-content: space-between;
     padding-right: 88px;
+    padding-left: 88px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -158,6 +159,37 @@ nav{
     font-size: 33px;
     
     
+}
+.typeinfo22222{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+   width: 100%;
+
+   
+}
+.leftright{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+}
+.scrollbutton{
+   
+      width: 44px;
+  height: 44px;
+  border:none;
+  border-radius: 50%;
+  background-color: #21242527;
+  color: black;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+
 }
 .productimg{
     width: 100%;
@@ -170,7 +202,10 @@ nav{
     height: 269px;;
 }
 .product{
-    width: 269px;
+    flex: 0 0 auto;           
+  scroll-snap-align: start;
+  width: 269px;
+    
 }
 .productinfo{
     display: flex;
@@ -179,6 +214,11 @@ nav{
     width:269px;
 }
 .procuctcontinair{
+      display: flex;
+  overflow-x: auto;        
+  scroll-snap-type: x mandatory;
+  gap: 16px;              
+  scroll-behavior: smooth;
     display: flex;
     align-items: center;
     justify-content:flex-end;
@@ -192,16 +232,32 @@ nav{
     align-items: center;
     justify-content: end;
     margin: 0px;
+   color: #00000070;
+   overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
 .buy{
     width: 115px;
     height: 43px;
     font-size: 19px;
     background: white;
-    border: 2px solid var(--main-color);
+    border: 2px solid var(--success-color);
     border-radius: 20px;
 }
 .price{
     font-size: 16px;
-    font-family: "Noto Sans Arabic";
+     font-weight: bold;
+}
+.footer-content{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#F6F6F6;
+     padding: 0;
+   
+    margin-top: 60px;
 }
