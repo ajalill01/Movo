@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const createAdmin = async () => {
     try {
-        const existingAdmin = await Admin.findOne({ role: 'admin' });
+        const existingAdmin = await Admin.findOne();
 
         if (existingAdmin) {
             console.log('Admin already exists');
@@ -13,7 +13,7 @@ const createAdmin = async () => {
         const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASS, 10);
 
         const admin = new Admin({
-            email: "housefindservice@gmail.com",
+            email: "movomovo396@gmail.com",
             password: hashedPassword,
         });
 

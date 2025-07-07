@@ -20,6 +20,9 @@ app.use(cors());
 app.use(sanitize);
 
 const categoryRoutes = require('./backend/routes/category-routes');
+const financeRoutes = require('./backend/routes/finance-routes');
+const orderRoutes = require('./backend/routes/order-routes');
+
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -32,7 +35,9 @@ app.use(globalLimiter);
 
 app.use('/api/auth', require('./backend/routes/auth-route'));
 app.use('/api/categories', categoryRoutes);
-// app.use('/api/brands', require('./backend/routes/brand-route'));
+app.use('/api/products', require('./backend/routes/product-routes'));
+app.use('/api/finances', financeRoutes);
+app.use('/api/orders', orderRoutes);
 // app.use('/api/cars', require('./backend/routes/car-route'));
 // app.use('/api/products', require('./backend/routes/product-route'));
 // app.use('/api/orders', require('./backend/routes/orders-route'));
@@ -42,3 +47,8 @@ app.use('/api/categories', categoryRoutes);
 const PORT = process.env.PORT || 3000;
 require("./backend/database/db.js")(); 
 app.listen(PORT, () => console.log("Server is running on port", PORT));
+
+// const { initializeFinanceRecord } = require('./backend/controllers/finance-controller');
+
+
+//   initializeFinanceRecord();
