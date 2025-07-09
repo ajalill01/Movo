@@ -1,0 +1,378 @@
+
+        :root {
+            --main-color: #A6D2D7;
+            --accent-color: #9BCAC8;
+            --success-color: #B6D89B;
+            --danger-color: #FF6B6B;
+            --warning-color: #FFD166;
+            --white-color: #fff;
+            --black-color: #000;
+            --text-color: #2D3748;
+            --gray-light: #F7FAFC;
+            --gradient-color: linear-gradient(to right, #A6D2D7, #9BCAC8, #B6D89B);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--gray-light);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 110px;
+            height: 100vh;
+            padding: 0 1.7rem;
+            color: var(--white-color);
+            overflow: hidden;
+            transition: all 0.5s linear;
+            background-color: var(--main-color);
+            z-index: 100;
+        }
+
+        .sidebar:hover {
+            width: 240px;
+            transition: 0.5s;
+        }
+
+        .logo {
+            height: 80px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--white-color);
+        }
+
+        .menu {
+            height: 88%;
+            position: relative;
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 1rem;
+            margin: 8px 0;
+            border-radius: 8px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .menu li:hover,
+        .active {
+            background-color: var(--accent-color);
+        }
+
+        .menu a {
+            color: var(--black-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .menu a span {
+            overflow: hidden;
+        }
+
+        .menu a i {
+            font-size: 1.2rem;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            width: 100%;
+        }
+
+        .main-content {
+            position: relative;
+            background: var(--gray-light);
+            width: 100%;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            background: var(--white-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-title {
+            color: var(--main-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .card-container {
+            background: var(--white-color);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .main-title {
+            color: var(--text-color);
+            padding-bottom: 10px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .finance-card {
+            background: var(--white-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-width: 250px;
+            flex: 1;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .finance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .finance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+
+        .income-card::before {
+            background-color: var(--success-color);
+        }
+
+        .expense-card::before {
+            background-color: var(--danger-color);
+        }
+
+        .benefit-card::before {
+            background-color: var(--warning-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .income-card .card-icon {
+            background-color: rgba(182, 216, 155, 0.2);
+            color: var(--success-color);
+        }
+
+        .expense-card .card-icon {
+            background-color: rgba(255, 107, 107, 0.2);
+            color: var(--danger-color);
+        }
+
+        .benefit-card .card-icon {
+            background-color: rgba(255, 209, 102, 0.2);
+            color: var(--warning-color);
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0.5rem 0;
+        }
+
+        .income-card .card-value {
+            color: var(--success-color);
+        }
+
+        .expense-card .card-value {
+            color: var(--danger-color);
+        }
+
+        .benefit-card .card-value {
+            color: var(--warning-color);
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .card-footer i {
+            margin-right: 0.5rem;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--main-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+                padding: 0 1rem;
+            }
+
+            .sidebar:hover {
+                width: 200px;
+            }
+
+            .menu a span {
+                font-size: 0.9rem;
+            }
+
+            .finance-card {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                position: fixed;
+                width: 70px;
+                padding: 0 0.5rem;
+            }
+
+            .sidebar:hover {
+                width: 180px;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .menu a i {
+                font-size: 1rem;
+            }
+
+            .card-container {
+                padding: 1rem;
+            }
+
+            .finance-card {
+                height: 160px;
+                padding: 1rem;
+            }
+
+            .card-value {
+                font-size: 1.75rem;
+            }
+
+        }
+
+        @media (max-width: 300px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .sidebar:hover {
+                width: 160px;
+            }
+
+            .main-content {
+                margin-left: 60px;
+            }
+
+            .header-title {
+                font-size: 1.2rem;
+            }
+
+            .finance-card {
+                height: 140px;
+            }
+
+            .card-value {
+                font-size: 1.5rem;
+            }
+        }

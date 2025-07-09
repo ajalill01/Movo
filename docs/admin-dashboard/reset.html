@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="login.css"> <!-- Reusing the same CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo-container">
+                <i class="fas fa-key"></i>
+                <h1>Reset Password</h1>
+                <p class="subtitle">Enter your email to receive a verification code</p>
+            </div>
+            
+            <form id="resetForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="Enter your registered email" required>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    <button type="submit" class="login-btn">
+                        <span>Send Verification Code</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <a href="login.html" class="reset-link">
+                        <i class="fas fa-arrow-left"></i> Back to Login
+                    </a>
+                </div>
+                
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resetForm = document.getElementById('resetForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Handle reset form submission
+            resetForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                
+                try {
+                    const response = await fetch('http://localhost:3000/api/auth/request-reset', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        showSuccess('Verification code sent to your email! Redirecting...');
+                        // Store email for verification page
+                        localStorage.setItem('resetEmail', email);
+                        // Redirect to verify page after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'verify.html';
+                        }, 2000);
+                    } else {
+                        showError(data.message || 'Failed to send verification code. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Reset error:', error);
+                    showError('Something went wrong. Please try again later.');
+                }
+            });
+            
+            // Function to display error messages
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+                
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Function to display success messages
+            function showSuccess(message) {
+                successMessage.textContent = message;
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

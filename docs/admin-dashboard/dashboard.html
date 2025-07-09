@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Finance Dashboard</title>
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="menu">
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="category.html">
+                    <i class="fas fa-list"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="main-content">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <h2>Finance Dashboard</h2>                
+            </div>
+        </div>
+
+        <div class="card-container">
+            <h1 class="main-title">Financial Overview</h1>
+            <div class="card-wrapper">
+                <div class="finance-card income-card">
+                    <div class="card-header">
+                        <div class="card-title">Total Income</div>
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="income-value">$0</div>
+                    <div class="card-footer">
+                        <i class="fas fa-info-circle"></i>
+                        <span>All time income</span>
+                    </div>
+                </div>
+
+                <div class="finance-card expense-card">
+                    <div class="card-header">
+                        <div class="card-title">Total Expenses</div>
+                        <div class="card-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="expense-value">$0</div>
+                    <div class="card-footer">
+                        <i class="fas fa-info-circle"></i>
+                        <span>All time expenses</span>
+                    </div>
+                </div>
+
+                <div class="finance-card benefit-card">
+                    <div class="card-header">
+                        <div class="card-title">Net Benefit</div>
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="card-value" id="benefit-value">$0</div>
+                    <div class="card-footer">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Income - Expenses</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/dashboard.js"></script>
+
+</body>
+</html>

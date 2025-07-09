@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Management</title>
+    <link rel="stylesheet" href="products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="menu">
+            <li >
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li >
+                <a href="category.html">
+                    <i class="fas fa-list"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <h2>  </h2>                
+            </div>
+            <button class="btn btn-primary" id="add-product-btn">
+                <i class="fas fa-plus"></i> Add Product
+            </button>
+        </div>
+
+        <div class="card-container">
+            <h1 class="main-title">All Products</h1>
+            <div class="products-grid" id="products-container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Product</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-product-form">
+                    <input type="hidden" id="edit-product-id">
+                    <div class="form-group">
+                        <label for="edit-product-name">Product Name</label>
+                        <input type="text" id="edit-product-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-description">Description</label>
+                        <textarea id="edit-product-description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-price">Price</label>
+                        <input type="number" id="edit-product-price" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-quantity">Quantity</label>
+                        <input type="number" id="edit-product-quantity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-product-image">Product Image</label>
+                        <input type="file" id="edit-product-image" class="form-control" accept="image/*">
+                        <small class="text-muted">Leave empty to keep current image</small>
+                    </div>
+                    <div class="form-group">
+                        <img id="current-product-image" src="" alt="Current Product Image" style="max-width: 100%; height: auto; margin-top: 10px; display: none;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-edit-btn">Cancel</button>
+                <button class="btn btn-primary" id="save-product-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="create-product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Product</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-product-form">
+                    <div class="form-group">
+                        <label for="create-product-name">Product Name*</label>
+                        <input type="text" id="create-product-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="create-product-description">Description*</label>
+                        <textarea id="create-product-description" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="create-product-price">Price*</label>
+                        <input type="number" id="create-product-price" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="create-product-quantity">Quantity*</label>
+                        <input type="number" id="create-product-quantity" class="form-control" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="create-product-category">Category*</label>
+                        <select id="create-product-category" class="form-control" required>
+                            <option value="">Select a category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="create-product-image">Product Image*</label>
+                        <input type="file" id="create-product-image" class="form-control" accept="image/*" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-create-btn">Cancel</button>
+                <button class="btn btn-primary" id="submit-product-btn">Create Product</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification-container"></div>
+    <script src="static/products.js"></script>
+</body>
+</html>

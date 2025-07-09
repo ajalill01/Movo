@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories Management</title>
+    <link rel="stylesheet" href="category.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-list"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <h2>  </h2>                
+            </div>
+            <button class="btn btn-primary" id="add-category-btn">
+                <i class="fas fa-plus"></i> Add Category
+            </button>
+        </div>
+
+        <div class="card-container">
+            <div class="main-title">
+                <h2>All Categories</h2>
+            </div>
+            <div class="categories-list" id="categories-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="create-category-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Category</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-category-form">
+                    <div class="form-group">
+                        <label for="category-name">Category Name*</label>
+                        <input type="text" id="category-name" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-category-btn">Cancel</button>
+                <button class="btn btn-primary" id="submit-category-btn">Create Category</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-category-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Category</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-category-form">
+                    <input type="hidden" id="edit-category-id">
+                    <div class="form-group">
+                        <label for="edit-category-name">Category Name*</label>
+                        <input type="text" id="edit-category-name" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancel-edit-category-btn">Cancel</button>
+                <button class="btn btn-primary" id="save-category-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification-container"></div>
+    <script src="static/category.js"></script>
+</body>
+</html>
