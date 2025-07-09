@@ -378,6 +378,7 @@ nav{
   }
 }
 @media (max-width: 780px) {
+   
     .hero{
         flex-direction:column-reverse;
         height: auto;
@@ -501,6 +502,15 @@ nav{
 }
 }
 @media (max-width: 404px) {
+     body{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .footer-content{
+      margin-left: 0;
+  margin-right: 0;
+   width: 100%;
+  }
     .texthero p{
   font-size: 23px;
       
@@ -509,4 +519,5 @@ nav{
 #number{
     display: none;
 }
+
 }

@@ -45,3 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+async function loadCategories() {
+  try {
+    const res = await fetch(' http://localhost:5000/api/categories/categories'); 
+    const data = await res.json();
+
+    if (data.success) {
+      const menu = document.getElementById('categoryMenu');
+      menu.innerHTML = ''; 
+
+      data.categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.textContent = cat.name; 
+        menu.appendChild(li);
+      });
+    } else {
+      console.error('Error fetching categories:', data.message);
+    }
+  } catch (err) {
+    console.error('Fetch error:', err);
+  }
+}
+
+loadCategories();
