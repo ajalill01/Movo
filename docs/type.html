@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./type.css">
+</head>
+<body>
+       <nav>
+        <img src="./assets/photo_2025-07-06_11-29-22sdsds.jpg"alt="Logo"  class="logo">
+        <div class="contactlinks">
+            <div class="phone">
+                <img src="./assets/image.png" alt="Phone Icon" class="insta">
+                <p id="number">0505467839</p> 
+            </div>
+
+                <img src="./assets/instagram (2).png" alt="insta Icon" class="insta">
+                <img src="./assets/facebook (2).png" alt="facebook Icon" class="insta">
+            
+        </div>
+    </nav>
+    <div class="back-button" onclick="history.back()">
+  ←
+</div>
+      <div id="allCategories">
+        <div class="type">
+       <div class="onetype">
+            <div class="typeinfo22222">
+           <img src="./assets/angle-small-down (1).png" alt="Dropdown Icon" class="dropdown-icon1">
+            <p class="goToType" data-id="${cat._id}" style="cursor: pointer;">${cat.name}</p>
+            </div>
+          </div>
+
+          <div class="procuctcontinair">
+                 <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+              <div class="product">
+              <div class="productimg2">
+                <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
+              </div>
+              <div class="productinfo">
+                <p class="price">${p.price} دج</p>
+                <p>${p.name}</p>
+              </div>
+              <div class="description">${p.description || ''}</div>
+              <div class="buybutton">
+                <button class="buy">شراء</button>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+  
+<div>
+    
+</div>
+
+    <script src="type.js"></script>
+</body>
+</html>

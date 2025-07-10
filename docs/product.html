@@ -1,139 +1,137 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <link rel="stylesheet" href="./product.css">
-      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>المنتج</title>
+  <link rel="stylesheet" href="./product.css" />
+  <link rel="stylesheet" href="./loading.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-     <nav>
-        <img src="./assets/photo_2025-07-06_11-29-22sdsds.jpg"alt="Logo"  class="logo">
-        <div class="contactlinks">
-            <div class="phone">
-                <img src="./assets/image.png" alt="Phone Icon" class="insta">
-                <p id="number">0505467839</p> 
-            </div>
-
-                <img src="./assets/instagram (2).png" alt="insta Icon" class="insta">
-                <img src="./assets/facebook (2).png" alt="facebook Icon" class="insta">
-            
-        </div>
-    </nav>
-    <div class="back-button" onclick="history.back()">
-  ←
-</div>
-
-    <div class="container">
-        
-        <div class="product-details">
-            <div class="product-title-container">
-            <p class="product-title">مكمل غذائي للدماغ</p>
-            <p class="product-description">هذا المكمل الغذائي مصمم لتحسين وظائف الدماغ والتركيز.</p>
-            </div>
-            <div class="product-price">
-            <p >1000 دج</p>
-            <p class="soooooom"> الدفع عند الاستلام   </p>
-            </div>
-            <div class="product-quantity">
-              
-             <div class="quantity">
-                        <img src="./assets/minus-small.png" alt="Minus Icon" class="quantity-icon" id="minus-btn">
-                <p class="quantity-number" id="quantity-number">1</p>
-             <img src="./assets/plus-small.png" alt="Plus Icon" class="quantity-icon" id="plus-btn">
-            </div>
-                  <div class="buy-button" onclick="openPopup()">اشتري الان</div>
-            </div>
-            
+  <nav>
+    <img src="./assets/photo_2025-07-06_11-29-22sdsds.jpg" alt="Logo" class="logo" />
+    <div class="contactlinks">
+      <div class="phone">
+        <img src="./assets/image.png" alt="Phone Icon" class="insta" />
+        <p id="number">0505467839</p>
+      </div>
+      <img src="./assets/instagram (2).png" alt="insta" class="insta" />
+      <img src="./assets/facebook (2).png" alt="facebook" class="insta" />
     </div>
-   
-    <div class="imgcontainer"><img src="./assets/brain-booster-pills-still-life.jpg" alt="Product Image" class="product-image"></div>
-     </div>
+  </nav>
 
-<div class="popup-overlay" id="popupOverlay">
-  <div class="popup-form">
-    <h2 class="form-title">معلومات الشراء</h2>
-    <form id="purchaseForm">
-      <input type="text" name="firstName" placeholder="الاسم الأول" required>
-      <input type="text" name="lastName" placeholder="الاسم الأخير" required>
-      <input type="tel" name="phoneNumber" placeholder="رقم الهاتف" required>
+  <div class="back-button" onclick="history.back()">←</div>
 
-      
-      <div class="custom-dropdown">
-        <div class="selected-option" id="selectedCity">اختر ولايتك</div>
-        <ul class="dropdown-list" id="cityList">
-          <li>أدرار</li>
-          <li>الشلف</li>
-          <li>الأغواط</li>
-          <li>أم البواقي</li>
-          <li>باتنة</li>
-          <li>بجاية</li>
-          <li>بسكرة</li>
-          <li>بشار</li>
-          <li>البليدة</li>
-          <li>البويرة</li>
-          <li>تمنراست</li>
-          <li>تبسة</li>
-          <li>تلمسان</li>
-          <li>تيارت</li>
-          <li>تيزي وزو</li>
-          <li>الجزائر</li>
-          <li>الجلفة</li>
-          <li>جيجل</li>
-          <li>سطيف</li>
-          <li>سعيدة</li>
-          <li>سكيكدة</li>
-          <li>سيدي بلعباس</li>
-          <li>عنابة</li>
-          <li>قالمة</li>
-          <li>قسنطينة</li>
-          <li>المدية</li>
-          <li>مستغانم</li>
-          <li>المسيلة</li>
-          <li>معسكر</li>
-          <li>ورقلة</li>
-          <li>وهران</li>
-          <li>البيض</li>
-          <li>إليزي</li>
-          <li>برج بوعريريج</li>
-          <li>بومرداس</li>
-          <li>الطارف</li>
-          <li>تندوف</li>
-          <li>تيسمسيلت</li>
-          <li>الوادي</li>
-          <li>خنشلة</li>
-          <li>سوق أهراس</li>
-          <li>تيبازة</li>
-          <li>ميلة</li>
-          <li>عين الدفلى</li>
-          <li>النعامة</li>
-          <li>عين تموشنت</li>
-          <li>غرداية</li>
-          <li>غليزان</li>
-          <li>تميمون</li>
-          <li>برج باجي مختار</li>
-          <li>أولاد جلال</li>
-          <li>بني عباس</li>
-          <li>عين صالح</li>
-          <li>عين قزام</li>
-          <li>تقرت</li>
-          <li>جانت</li>
-          <li>المغير</li>
-          <li>المنيعة</li>
-        </ul>
-        <input type="hidden" name="address" id="addressInput" required>
+  <div class="container">
+    <div class="product-details">
+      <div class="product-title-container">
+        <p class="product-title skeleton title"></p>
+        <p class="product-description skeleton text"></p>
       </div>
-
-      <div class="form-buttons">
-        <button type="submit" class="submit-button">تأكيد الطلب</button>
-        <button type="button" class="cancel-button" onclick="closePopup()">إلغاء</button>
+      <div class="product-price">
+        <p class="price skeleton text" ></p>
+        <p class="soooooom skeleton text" ></p>
       </div>
-    </form>
-   
+      <div class="product-quantity">
+        <div class="quantity">
+          <img src="./assets/minus-small.png" alt="-" id="minus-btn" class="quantity-icon">
+          <p id="quantity-number">1</p>
+          <img src="./assets/plus-small.png" alt="+" id="plus-btn" class="quantity-icon">
+        </div>
+        <div class="buy-button" onclick="openPopup()">اشتري الان</div>
+      </div>
+    </div>
+
+    <div class="imgcontainer">
+      <img src=""  class="product-image skeleton" id="productImage" />
+    </div>
   </div>
-</div>
-    <div id="toastMessage" class="toast"> تم إرسال طلبك بنجاح!</div>
-     <script src="./product.js"></script>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-form">
+      <h2 class="form-title">معلومات الشراء</h2>
+      <form id="purchaseForm">
+        <input type="text" name="firstName" placeholder="الاسم الأول" required>
+        <input type="text" name="lastName" placeholder="الاسم الأخير" required>
+        <input type="tel" name="phoneNumber" placeholder="رقم الهاتف" required>
+
+        <div class="custom-dropdown">
+          <div class="selected-option" id="selectedCity">اختر ولايتك</div>
+          <ul class="dropdown-list" id="cityList">
+            <li>أدرار</li>
+            <li>الشلف</li>
+            <li>الأغواط</li>
+            <li>أم البواقي</li>
+            <li>باتنة</li>
+            <li>بجاية</li>
+            <li>بسكرة</li>
+            <li>بشار</li>
+            <li>البليدة</li>
+            <li>البويرة</li>
+            <li>تمنراست</li>
+            <li>تبسة</li>
+            <li>تلمسان</li>
+            <li>تيارت</li>
+            <li>تيزي وزو</li>
+            <li>الجزائر</li>
+            <li>الجلفة</li>
+            <li>جيجل</li>
+            <li>سطيف</li>
+            <li>سعيدة</li>
+            <li>سكيكدة</li>
+            <li>سيدي بلعباس</li>
+            <li>عنابة</li>
+            <li>قالمة</li>
+            <li>قسنطينة</li>
+            <li>المدية</li>
+            <li>مستغانم</li>
+            <li>المسيلة</li>
+            <li>معسكر</li>
+            <li>ورقلة</li>
+            <li>وهران</li>
+            <li>البيض</li>
+            <li>إليزي</li>
+            <li>برج بوعريريج</li>
+            <li>بومرداس</li>
+            <li>الطارف</li>
+            <li>تندوف</li>
+            <li>تيسمسيلت</li>
+            <li>الوادي</li>
+            <li>خنشلة</li>
+            <li>سوق أهراس</li>
+            <li>تيبازة</li>
+            <li>ميلة</li>
+            <li>عين الدفلى</li>
+            <li>النعامة</li>
+            <li>عين تموشنت</li>
+            <li>غرداية</li>
+            <li>غليزان</li>
+            <li>تميمون</li>
+            <li>برج باجي مختار</li>
+            <li>أولاد جلال</li>
+            <li>بني عباس</li>
+            <li>عين صالح</li>
+            <li>عين قزام</li>
+            <li>تقرت</li>
+            <li>جانت</li>
+            <li>المغير</li>
+            <li>المنيعة</li>
+          </ul>
+          <input type="hidden" name="address" id="addressInput" required>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="submit-button">تأكيد الطلب</button>
+          <button type="button" class="cancel-button" onclick="closePopup()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toastMessage" class="toast">تم إرسال طلبك بنجاح!</div>
+
+  <script src="./product.js"></script>
+  <script src="./fetchProduct.js"></script>
 </body>
 </html>

@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadCategories() {
   try {
-    const res = await fetch('http://localhost:5000/api/categories/categories');
+    const res = await fetch('http://localhost:3000/api/categories');
     const data = await res.json();
 
     if (data.success) {
@@ -96,7 +96,7 @@ async function loadCategories() {
             </div>
             <div class="typeinfo22222">
            <img src="./assets/angle-small-down (1).png" alt="Dropdown Icon" class="dropdown-icon1">
-            <p>${cat.name}</p>
+            <p class="goToType" data-id="${cat._id}" style="cursor: pointer;">${cat.name}</p>
             </div>
           </div>
         `;
@@ -105,6 +105,13 @@ async function loadCategories() {
         productContainer.className = 'procuctcontinair';
 
         typeWrapper.innerHTML = headerHTML;
+        const goToType = typeWrapper.querySelector(".goToType");
+    if (goToType) {
+      goToType.addEventListener("click", () => {
+     const id = goToType.dataset.id;
+    window.location.href = `type.html?id=${id}`;
+  });
+}
         typeWrapper.appendChild(productContainer);
         container.appendChild(typeWrapper);
 
@@ -114,7 +121,7 @@ async function loadCategories() {
 
           if (allLoaded||isLoading) return;
           isLoading = true;
-          fetch(`http://localhost:5000/api/products/getallproduct?category=${cat._id}&page=${page}`)
+          fetch(`http://localhost:3000/api/products/getallproduct?category=${cat._id}&page=${page}`)
             .then(res => res.json())
             .then(prodData => {
               isLoading = false;
@@ -130,7 +137,7 @@ async function loadCategories() {
     <div class="product">
       <div class="productimg2">
         <img src="${p.image?.url || './assets/placeholder.png'}" class="productimg">
-      </div>
+        </div>
       <div class="productinfo">
          <p class="price">${p.price} دج</p>
         <p>${p.name}</p>

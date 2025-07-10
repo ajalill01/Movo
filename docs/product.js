@@ -2,7 +2,59 @@
   const plusBtn = document.getElementById('plus-btn');
   const numberDisplay = document.getElementById('quantity-number');
 
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+  if (!productId) {
+    console.error("No product ID found in URL.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error("Product fetch failed:", data.error);
+      return;
+    }
+
+    const product = data.product;
+
+    
+    document.querySelector(".product-title").textContent = product.name;
+    document.querySelector(".product-description").textContent = product.description || "لا يوجد وصف متاح";
+    document.querySelector(".price").textContent = `${product.price} دج`;
+    document.querySelector(".soooooom").textContent = "الدفع عند الاستلام";
+
+    const imageEl = document.getElementById("productImage");
+    imageEl.src = product.image?.url ;
+    imageEl.alt = product.name;
+
+    
+    document.querySelectorAll(".skeleton").forEach(el => {
+      el.classList.remove("skeleton");
+    });
+
+  } catch (err) {
+    console.error("Fetch error:", err);
+  }
+});
+
+
+
+
+
+
+
+
+
   let count = parseInt(numberDisplay.textContent);
+
+
+
+
 
   minusBtn.addEventListener('click', () => {
     if (count > 1) {
@@ -51,27 +103,53 @@ document.addEventListener("click", (e) => {
 
 
 const form = document.getElementById("purchaseForm");
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const quantity = document.getElementById("quantity-number").textContent;
+    form.addEventListener("submit", async function (e) {
+     e.preventDefault();
 
-  const data = {
+  const quantity = parseInt(document.getElementById("quantity-number").textContent);
+  const productId = new URLSearchParams(window.location.search).get("id");
+      const data = {
     firstName: this.firstName.value,
     lastName: this.lastName.value,
     phoneNumber: this.phoneNumber.value,
     address: this.address.value,
-    cartItems: quantity
+    paymentMethod: "cash", 
+    cartItems: [
+      {
+        productId,
+        quantity
+      }
+    ]
   };
 
-  console.log("تم الإرسال:", data);
+  try {
+    const res = await fetch("http://localhost:3000/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-  
-  const toast = document.getElementById("toastMessage");
-  toast.classList.add("show");
+    const result = await res.json();
 
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 1000);
+    if (result.success) {
+      console.log("تم الإرسال:", result.data);
 
-  closePopup(); 
+      const toast = document.getElementById("toastMessage");
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+
+      closePopup();
+    } else {
+      console.error("فشل الطلب:", result.message);
+      
+    }
+  } catch (error) {
+    console.error("خطأ في إرسال الطلب:", error.message);
+   
+  }
 });
