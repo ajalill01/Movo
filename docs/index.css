@@ -382,16 +382,15 @@ nav{
     .hero{
         flex-direction:column-reverse;
         height: auto;
-        
+      
     }
     .heroimg{
     width: 100%;
-    height: auto; 
+    height: 408px; 
 }
 .heroimg img{
    width: 100%;
-    height:100%;
-    object-fit: cover;
+    height: 100%;
     border-top-right-radius:10px ;
     border-top-left-radius:10px ;
     border-bottom-right-radius:0px ;
@@ -502,10 +501,7 @@ nav{
 }
 }
 @media (max-width: 404px) {
-     body{
-        padding-left: 0px;
-        padding-right: 0px;
-    }
+   
     .footer-content{
       margin-left: 0;
   margin-right: 0;
@@ -519,5 +515,8 @@ nav{
 #number{
     display: none;
 }
-
+   .heroimg{
+    width: 100%;
+    height: 300px; 
+}
 }
