@@ -1,13 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', function() {
-    fetchFinancialData();
+    fetchIncomeData();
 });
 
-async function fetchFinancialData() {
+async function fetchIncomeData() {
     try {
         document.getElementById('income-value').textContent = 'Loading...';
-        document.getElementById('expense-value').textContent = 'Loading...';
-        document.getElementById('benefit-value').textContent = 'Loading...';
 
         const token = localStorage.getItem('token');
         if (!token) {
@@ -32,32 +29,14 @@ async function fetchFinancialData() {
         const data = await response.json();
         
         if (data.success) {
-            const finances = data.finances;
-            const income = finances.incomes || 0;
-            const expense = finances.expenses || 0;
-            const benefit = income - expense;
-            
-
+            const income = data.finances.incomes || 0;
             document.getElementById('income-value').textContent = formatCurrency(income);
-            document.getElementById('expense-value').textContent = formatCurrency(expense);
-            document.getElementById('benefit-value').textContent = formatCurrency(benefit);
-            
-            const benefitElement = document.getElementById('benefit-value');
-            if (benefit < 0) {
-                benefitElement.style.color = 'var(--danger-color)';
-            } else if (benefit > 0) {
-                benefitElement.style.color = 'var(--success-color)';
-            } else {
-                benefitElement.style.color = 'var(--warning-color)';
-            }
         } else {
-            throw new Error(data.error || 'Failed to fetch financial data');
+            throw new Error(data.error || 'Failed to fetch income data');
         }
     } catch (error) {
-        console.error('Error fetching financial data:', error);
+        console.error('Error fetching income data:', error);
         document.getElementById('income-value').textContent = 'Error';
-        document.getElementById('expense-value').textContent = 'Error';
-        document.getElementById('benefit-value').textContent = 'Error';
         
         if (error.message.includes('token') || error.message.includes('auth')) {
             window.location.href = 'login.html';
@@ -67,4 +46,4 @@ async function fetchFinancialData() {
 
 function formatCurrency(amount) {
     return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + 'DA';
-} 
+}

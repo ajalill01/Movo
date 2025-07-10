@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css">
-    <title>Finance Dashboard</title>
-
+    <title>Income Dashboard</title>
 </head>
 <body>
     <div class="sidebar">
@@ -47,17 +46,15 @@
         </div>
     </div>
 
-    </div>
-
     <div class="main-content">
         <div class="header-wrapper">
             <div class="header-title">
-                <h2>Finance Dashboard</h2>                
+                <h2>Income Dashboard</h2>                
             </div>
         </div>
 
         <div class="card-container">
-            <h1 class="main-title">Financial Overview</h1>
+            <h1 class="main-title">Income Overview</h1>
             <div class="card-wrapper">
                 <div class="finance-card income-card">
                     <div class="card-header">
@@ -66,38 +63,10 @@
                             <i class="fas fa-arrow-up"></i>
                         </div>
                     </div>
-                    <div class="card-value" id="income-value">$0</div>
+                    <div class="card-value" id="income-value">0DA</div>
                     <div class="card-footer">
                         <i class="fas fa-info-circle"></i>
                         <span>All time income</span>
-                    </div>
-                </div>
-
-                <div class="finance-card expense-card">
-                    <div class="card-header">
-                        <div class="card-title">Total Expenses</div>
-                        <div class="card-icon">
-                            <i class="fas fa-arrow-down"></i>
-                        </div>
-                    </div>
-                    <div class="card-value" id="expense-value">$0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-info-circle"></i>
-                        <span>All time expenses</span>
-                    </div>
-                </div>
-
-                <div class="finance-card benefit-card">
-                    <div class="card-header">
-                        <div class="card-title">Net Benefit</div>
-                        <div class="card-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="card-value" id="benefit-value">$0</div>
-                    <div class="card-footer">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Income - Expenses</span>
                     </div>
                 </div>
             </div>
@@ -105,6 +74,5 @@
     </div>
 
     <script src="static/dashboard.js"></script>
-
 </body>
 </html>

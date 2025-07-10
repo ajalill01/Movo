@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="order.css">
+    <title>Orders Management</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="menu">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="products.html">
+                    <i class="fas fa-box-open"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="category.html">
+                    <i class="fas fa-list"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="#">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <h2>Orders Management</h2>
+                <div class="status-filter">
+                    <button class="filter-btn active" data-status="all">All</button>
+                    <button class="filter-btn" data-status="pending">Pending</button>
+                    <button class="filter-btn" data-status="confirmed">Confirmed</button>
+                    <button class="filter-btn" data-status="canceled">Canceled</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="table-wrapper">
+                <table id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-body">
+                        <!-- Orders will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button id="prev-page" disabled><i class="fas fa-chevron-left"></i></button>
+                <span id="page-info">Page 1</span>
+                <button id="next-page"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Order Details <span id="order-id"></span></h2>
+            
+            <div class="order-details-grid">
+                <div class="customer-info">
+                    <h3><i class="fas fa-user"></i> Customer Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Name:</span>
+                        <span id="customer-name" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Phone:</span>
+                        <span id="customer-phone" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Address:</span>
+                        <span id="customer-address" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status:</span>
+                        <span id="order-status" class="info-value status-badge"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span id="order-date" class="info-value"></span>
+                    </div>
+                </div>
+                
+                <div class="order-items">
+                    <h3><i class="fas fa-boxes"></i> Order Items</h3>
+                    <div class="items-container">
+                        <table id="order-items-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-items-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="order-summary">
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span id="subtotal-price">$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total:</span>
+                            <span id="total-price" class="total-amount">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button id="back-btn" class="action-btn back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button id="cancel-btn" class="action-btn cancel-btn">
+                    <i class="fas fa-times"></i> Cancel Order
+                </button>
+                <button id="confirm-btn" class="action-btn confirm-btn">
+                    <i class="fas fa-check"></i> Confirm Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/order.js"></script>
+</body>
+</html>

@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 app.use(sanitize);
 
-const categoryRoutes = require('./backend/routes/category-routes');
+// const categoryRoutes = require('./backend/routes/category-routes');
 const financeRoutes = require('./backend/routes/finance-routes');
 const orderRoutes = require('./backend/routes/order-routes');
 
@@ -34,7 +34,7 @@ app.use(globalLimiter);
 
 
 app.use('/api/auth', require('./backend/routes/auth-route'));
-app.use('/api/categories', categoryRoutes);
+app.use('/api/categories', require('./backend/routes/category-routes'));
 app.use('/api/products', require('./backend/routes/product-routes'));
 app.use('/api/finances', financeRoutes);
 app.use('/api/orders', orderRoutes);
