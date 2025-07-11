@@ -229,3 +229,20 @@ body {
         font-size: 13px;
     }
 }
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end; /* Align items to the end */
+    align-items: center;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.login-btn {
+    order: 1; /* Make button appear after link */
+}
+
+.reset-link {
+    order: 0; /* Make link appear before button */
+}
+

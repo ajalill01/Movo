@@ -24,24 +24,50 @@ const financeRoutes = require('./backend/routes/finance-routes');
 const orderRoutes = require('./backend/routes/order-routes');
 
 
-const globalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: 'Too many requests, please try again later.',
-  validate: { trustProxy: true } 
-});
-app.use(globalLimiter);
+// const globalLimiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: 'Too many requests, please try again later.',
+//   validate: { trustProxy: true } 
+// });
+// app.use(globalLimiter);
 
+const verifyAdminToken = (req, res, next) => {
+
+  const publicRoutes = [
+    '/docs/admin-dashboard/login.html',
+    '/docs/admin-dashboard/reset.html',
+    '/docs/admin-dashboard/verify.html',
+    '/docs/admin-dashboard/new-password.html'
+  ];
+  
+  if (publicRoutes.includes(req.path)) {
+    return next();
+  }
+
+  const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+  
+  if (!token) {
+    return res.redirect('/docs/admin-dashboard/login.html');
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.adminId = decoded.adminId;
+    next();
+  } catch (error) {
+    res.redirect('/docs/admin-dashboard/login.html');
+  }
+};
+
+app.use('/docs/admin-dashboard', verifyAdminToken);
 
 app.use('/api/auth', require('./backend/routes/auth-route'));
 app.use('/api/categories', require('./backend/routes/category-routes'));
 app.use('/api/products', require('./backend/routes/product-routes'));
 app.use('/api/finances', financeRoutes);
 app.use('/api/orders', orderRoutes);
-// app.use('/api/cars', require('./backend/routes/car-route'));
-// app.use('/api/products', require('./backend/routes/product-route'));
-// app.use('/api/orders', require('./backend/routes/orders-route'));
-// app.use("/api/stats", require("./backend/routes/statsRoute"));
+
 
 
 const PORT = process.env.PORT || 3000;

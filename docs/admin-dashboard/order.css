@@ -627,3 +627,125 @@ body {
 .table-wrapper::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
 }
+
+/* Responsive styles for Order Details Modal */
+@media (max-width: 768px) {
+    .order-details-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+    
+    .info-label {
+        width: auto;
+        margin-bottom: 0.2rem;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .modal-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-content {
+        padding: 1rem;
+        width: 98%;
+        margin: 1% auto;
+    }
+    
+    .order-summary {
+        padding: 0.8rem;
+    }
+    
+    #order-items-table th,
+    #order-items-table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .summary-item {
+        font-size: 0.9rem;
+    }
+    
+    .total-amount {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .modal-content {
+        padding: 0.8rem;
+    }
+    
+    .customer-info h3, 
+    .order-items h3 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    #order-items-table th,
+    #order-items-table td {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+    }
+    
+    .info-label,
+    .info-value {
+        font-size: 0.9rem;
+    }
+    
+    .action-btn {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .modal-content {
+        padding: 0.6rem;
+    }
+    
+    .customer-info h3, 
+    .order-items h3 {
+        font-size: 0.9rem;
+    }
+    
+    #order-items-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    #order-items-table th,
+    #order-items-table td {
+        padding: 0.3rem;
+        font-size: 0.7rem;
+    }
+    
+    .info-label,
+    .info-value {
+        font-size: 0.8rem;
+    }
+    
+    .action-btn {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .summary-item {
+        font-size: 0.8rem;
+    }
+    
+    .total-amount {
+        font-size: 0.9rem;
+    }
+}

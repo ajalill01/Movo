@@ -464,13 +464,6 @@
             font-size: 1.2rem;
         }
 
-        .scroll-loader {
-            display: flex;
-            justify-content: center;
-            padding: 1rem;
-            grid-column: 1 / -1;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 width: 80px;
@@ -555,13 +548,13 @@
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <a href="products.html">
                     <i class="fas fa-box-open"></i>
                     <span>Products</span>
                 </a>
             </li>
             <li>
-                <a href="categories.html">
+                <a href="category.html">
                     <i class="fas fa-list"></i>
                     <span>Categories</span>
                 </a>
@@ -572,14 +565,8 @@
                     <span>Orders</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
             <li class="logout">
-                <a href="#">
+                <a href="logout.html">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
@@ -590,7 +577,7 @@
     <div class="main-content">
         <div class="header-wrapper">
             <div class="header-title">
-                <h2>Products Management</h2>                
+                <h2>  </h2>                
             </div>
             <button class="btn btn-primary" id="add-product-btn">
                 <i class="fas fa-plus"></i> Add Product
@@ -603,9 +590,6 @@
                 <div class="loading">
                     <div class="spinner"></div>
                 </div>
-            </div>
-            <div class="scroll-loader" id="scroll-loader" style="display: none;">
-                <div class="spinner"></div>
             </div>
         </div>
     </div>
@@ -698,6 +682,14 @@
     <div id="notification-container"></div>
 
     <script>
+                document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    window.location.href = 'login.html';
+  }
+  
+  });
         document.addEventListener('DOMContentLoaded', function() {
             const productsContainer = document.getElementById('products-container');
             const editModal = document.getElementById('edit-product-modal');
@@ -712,34 +704,18 @@
             const addProductBtn = document.getElementById('add-product-btn');
             const notificationContainer = document.getElementById('notification-container');
             const categorySelect = document.getElementById('create-product-category');
-            const scrollLoader = document.getElementById('scroll-loader');
             
             const API_BASE_URL = 'http://localhost:3000/api/products';
             const CATEGORIES_API_URL = 'http://localhost:3000/api/categories';
             let currentProductId = null;
-            let currentPage = 1;
-            let isLoading = false;
-            let hasMore = true;
 
             closeModalBtns.forEach(btn => btn.addEventListener('click', closeAllModals));
             cancelEditBtn.addEventListener('click', closeAllModals);
             cancelCreateBtn.addEventListener('click', closeAllModals);
             addProductBtn.addEventListener('click', openCreateModal);
 
-            // Initialize and fetch data
+            fetchProducts();
             fetchCategories();
-            fetchProducts(true);
-
-            // Infinite scroll implementation
-            window.addEventListener('scroll', () => {
-                if (isLoading || !hasMore) return;
-                
-                const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-                if (scrollTop + clientHeight >= scrollHeight - 100) {
-                    currentPage++;
-                    fetchProducts();
-                }
-            });
 
             function showNotification(message, type = 'success') {
                 const notification = document.createElement('div');
@@ -790,10 +766,7 @@
             }
 
             function populateCategoryDropdown(categories) {
-                // Clear existing options
                 categorySelect.innerHTML = '<option value="">Select a category</option>';
-
-                // Add categories to dropdown
                 categories.forEach(category => {
                     const option = document.createElement('option');
                     option.value = category._id;
@@ -802,14 +775,7 @@
                 });
             }
 
-            async function fetchProducts(clear = false) {
-                if (isLoading) return;
-                
-                isLoading = true;
-                if (clear) {
-                    scrollLoader.style.display = 'flex';
-                }
-                
+            async function fetchProducts() {
                 try {
                     const token = localStorage.getItem('token');
                     if (!token) {
@@ -817,12 +783,7 @@
                         return;
                     }
 
-                    const queryParams = new URLSearchParams({
-                        page: currentPage,
-                        limit: 10
-                    }).toString();
-
-                    const response = await fetch(`${API_BASE_URL}?${queryParams}`, {
+                    const response = await fetch(`${API_BASE_URL}/getallproduct?page=1&limit=10`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
@@ -837,42 +798,29 @@
                     }
 
                     const data = await response.json();
-                    const { products, pagination } = data.data;
-
-                    if (clear) {
-                        productsContainer.innerHTML = '';
-                        currentPage = 1;
-                    }
-
-                    if (products.length === 0 && currentPage === 1) {
-                        productsContainer.innerHTML = `
-                            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                                No products found.
-                            </div>
-                        `;
-                        hasMore = false;
-                    } else {
-                        displayProducts(products);
-                        hasMore = pagination.hasNextPage;
-                    }
+                    displayProducts(data.data.products);
                 } catch (error) {
                     console.error('Error fetching products:', error);
-                    if (currentPage === 1) {
-                        productsContainer.innerHTML = `
-                            <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                                Failed to load products. Please try again later.
-                            </div>
-                        `;
-                    }
+                    productsContainer.innerHTML = `
+                        <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            Failed to load products. Please try again later.
+                        </div>
+                    `;
                     showNotification('Failed to load products', 'error');
-                } finally {
-                    isLoading = false;
-                    scrollLoader.style.display = 'none';
                 }
             }
 
             function displayProducts(products) {
-                const productsHTML = products.map(product => `
+                if (!products || products.length === 0) {
+                    productsContainer.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            No products found. Click "Add Product" to create one.
+                        </div>
+                    `;
+                    return;
+                }
+
+                productsContainer.innerHTML = products.map(product => `
                     <div class="product-card">
                         <img src="${product.image?.url || 'https://via.placeholder.com/300x200?text=No+Image'}" 
                              alt="${product.name}" 
@@ -904,9 +852,6 @@
                     </div>
                 `).join('');
 
-                productsContainer.insertAdjacentHTML('beforeend', productsHTML);
-
-                // Reattach event listeners to new elements
                 document.querySelectorAll('.edit-action').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.preventDefault();
@@ -1003,9 +948,7 @@
                     }
 
                     showNotification('Product deleted successfully');
-                    // Reset and reload products
-                    currentPage = 1;
-                    fetchProducts(true);
+                    fetchProducts();
                 } catch (error) {
                     console.error('Error deleting product:', error);
                     showNotification(error.message || 'Failed to delete product', 'error');
@@ -1046,9 +989,7 @@
 
                     showNotification('Product updated successfully');
                     closeAllModals();
-                    // Reset and reload products
-                    currentPage = 1;
-                    fetchProducts(true);
+                    fetchProducts();
                 } catch (error) {
                     console.error('Error updating product:', error);
                     showNotification(error.message || 'Failed to update product', 'error');
@@ -1098,9 +1039,7 @@
 
                     showNotification('Product created successfully');
                     closeAllModals();
-                    // Reset and reload products
-                    currentPage = 1;
-                    fetchProducts(true);
+                    fetchProducts();
                 } catch (error) {
                     console.error('Error creating product:', error);
                     showNotification(error.message || 'Failed to create product', 'error');

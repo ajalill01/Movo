@@ -14,7 +14,7 @@
         </div>
         <div class="menu">
             <li class="active">
-                <a href="#">
+                <a href="dashboard.html">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -32,13 +32,13 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="order.html">
                     <i class="fas fa-shopping-cart"></i>
                     <span>Orders</span>
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                <a href="logout.html">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
@@ -73,6 +73,16 @@
         </div>
     </div>
 
+    <script>
+                document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    window.location.href = 'login.html';
+  }
+});
+
+    </script>
     <script src="static/dashboard.js"></script>
 </body>
 </html>
