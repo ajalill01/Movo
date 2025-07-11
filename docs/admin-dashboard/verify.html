@@ -3,90 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>Verify Reset Code</title>
     <link rel="stylesheet" href="login.css"> <!-- Reusing the same CSS file -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Add these styles to your existing login.css */
-
-/* Specific styles for the reset password page */
-.login-card .subtitle {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
-    font-weight: 400;
-    text-align: center;
-}
-
-/* Form footer adjustments for reset page */
-.form-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    gap: 15px;
-}
-
-.login-btn {
-    flex-grow: 1; /* Allow button to grow */
-    min-width: 200px; /* Set a minimum width */
-    white-space: nowrap; /* Prevent text wrapping */
-}
-
-.reset-link {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-}
-
-/* Responsive adjustments for reset page */
-@media (max-width: 480px) {
-    .form-footer {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    
-    .login-btn {
-        width: 100%;
-        min-width: auto;
-        order: 1; /* Button comes first */
-    }
-    
-    .reset-link {
-        justify-content: center;
-        order: 2; /* Link comes second */
-    }
-}
-    </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-card">
             <div class="logo-container">
-                <i class="fas fa-key"></i>
-                <h1>Reset Password</h1>
-                <p class="subtitle">Enter your email to receive a verification code</p>
+                <i class="fas fa-shield-alt"></i>
+                <h1>Verify Your Identity</h1>
+                <p class="subtitle">Enter the 6-digit code sent to your email</p>
             </div>
             
-            <form id="resetForm">
+            <form id="verifyForm">
+                <input type="hidden" id="email" name="email" value="">
+                
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label for="code">Verification Code</label>
                     <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" name="email" placeholder="Enter your registered email" required>
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="code" name="code" placeholder="Enter 6-digit code" required maxlength="6" pattern="\d{6}">
                     </div>
+                    <div class="attempts-counter" id="attemptsCounter"></div>
                 </div>
                 
                 <div class="form-footer">
                     <button type="submit" class="login-btn">
-                        <span>Send Verification Code</span>
-                        <i class="fas fa-paper-plane"></i>
+                        <span>Verify Code</span>
+                        <i class="fas fa-check"></i>
                     </button>
-                    <a href="login.html" class="reset-link">
-                        <i class="fas fa-arrow-left"></i> Back to Login
+                    <a href="reset.html" class="reset-link">
+                        <i class="fas fa-arrow-left"></i> Back to Reset
                     </a>
                 </div>
                 
@@ -98,40 +47,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const resetForm = document.getElementById('resetForm');
+            // Get email from localStorage or redirect back
+            const email = localStorage.getItem('resetEmail');
+            if (!email) {
+                window.location.href = 'reset.html';
+                return;
+            }
+            document.getElementById('email').value = email;
+
+            const verifyForm = document.getElementById('verifyForm');
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
+            const attemptsCounter = document.getElementById('attemptsCounter');
 
-            // Handle reset form submission
-            resetForm.addEventListener('submit', async function(e) {
+            // Handle verification form submission
+            verifyForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
+                const code = document.getElementById('code').value;
                 const email = document.getElementById('email').value;
                 
                 try {
-                    const response = await fetch('http://localhost:3000/api/auth/request-reset', {
+                    const response = await fetch('http://localhost:3000/api/auth/verify-code', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ email })
+                        body: JSON.stringify({ email, code })
                     });
                     
                     const data = await response.json();
                     
                     if (data.success) {
-                        showSuccess('Verification code sent to your email! Redirecting...');
-                        // Store email for verification page
-                        localStorage.setItem('resetEmail', email);
-                        // Redirect to verify page after 2 seconds
+                        showSuccess('Code verified successfully! Redirecting to password reset...');
+                        // Store the temp token for password reset
+                        localStorage.setItem('resetToken', data.token);
+                        // Redirect to password reset page after 2 seconds
                         setTimeout(() => {
-                            window.location.href = 'verify.html';
+                            window.location.href = 'new-password.html';
                         }, 2000);
                     } else {
-                        showError(data.message || 'Failed to send verification code. Please try again.');
+                        showError(data.message || 'Failed to verify code.');
+                        // Update attempts counter if provided
+                        if (data.attemptsRemaining !== undefined) {
+                            updateAttemptsCounter(data.attemptsRemaining);
+                        }
                     }
                 } catch (error) {
-                    console.error('Reset error:', error);
+                    console.error('Verification error:', error);
                     showError('Something went wrong. Please try again later.');
                 }
             });
@@ -153,6 +116,15 @@
                 successMessage.textContent = message;
                 successMessage.style.display = 'block';
                 errorMessage.style.display = 'none';
+            }
+            
+            // Function to update attempts counter display
+            function updateAttemptsCounter(remaining) {
+                if (remaining <= 3) {
+                    attemptsCounter.textContent = `${remaining} attempts remaining`;
+                    attemptsCounter.style.color = remaining === 1 ? 'red' : 'orange';
+                    attemptsCounter.style.display = 'block';
+                }
             }
         });
     </script>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <link rel="stylesheet" href="login.css"> <!-- Reusing your existing CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Additional styles specific to logout page */
+        .logout-container {
+            text-align: center;
+            max-width: 450px;
+        }
+        
+        .logout-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-logout {
+            background-color: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-logout:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+        
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card logout-container">
+            <div class="logo-container">
+                <i class="fas fa-sign-out-alt" style="color: #ff6b6b;"></i>
+                <h1>Logout</h1>
+                <p class="subtitle">Are you sure you want to sign out?</p>
+            </div>
+            
+            <div class="logout-actions">
+                <button class="btn btn-logout" id="confirmLogout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Yes, Logout</span>
+                </button>
+                <button class="btn btn-cancel" id="cancelLogout">
+                    <i class="fas fa-times"></i>
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const confirmLogout = document.getElementById('confirmLogout');
+            const cancelLogout = document.getElementById('cancelLogout');
+            
+            // Handle logout confirmation
+            confirmLogout.addEventListener('click', function() {
+                // Remove token from localStorage
+                localStorage.removeItem('token');
+                localStorage.removeItem('resetToken'); // Clear any reset tokens too
+                
+                // Redirect to login page
+                window.location.href = 'login.html';
+            });
+            
+            // Handle cancel action
+            cancelLogout.addEventListener('click', function() {
+                // Go back to previous page
+                window.history.back();
+            });
+            
+            // Alternatively, you could check if there's actually a token to logout from
+            // and redirect to login immediately if not
+            /*
+            if (!localStorage.getItem('token')) {
+                window.location.href = 'login.html';
+            }
+            */
+        });
+    </script>
+</body>
+</html>

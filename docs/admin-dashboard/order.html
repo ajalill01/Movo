@@ -13,7 +13,7 @@
             <i class="fas fa-chart-line"></i>
         </div>
         <div class="menu">
-            <li>
+            <li >
                 <a href="dashboard.html">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -32,13 +32,13 @@
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <a href="order.html">
                     <i class="fas fa-shopping-cart"></i>
                     <span>Orders</span>
                 </a>
             </li>
             <li class="logout">
-                <a href="#">
+                <a href="logout.html">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
@@ -49,7 +49,7 @@
     <div class="main-content">
         <div class="header-wrapper">
             <div class="header-title">
-                <h2>Orders Management</h2>
+                <h2>  </h2>
                 <div class="status-filter">
                     <button class="filter-btn active" data-status="all">All</button>
                     <button class="filter-btn" data-status="pending">Pending</button>
@@ -158,6 +158,17 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    window.location.href = 'login.html';
+  }
+  
+  });
+
+    </script>
     <script src="static/order.js"></script>
 </body>
 </html>
