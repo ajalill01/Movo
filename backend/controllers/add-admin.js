@@ -1,4 +1,4 @@
-const Admin = require('../model/Admin');
+const Admin = require('../model/admin');
 const bcrypt = require('bcrypt');
 
 const createAdmin = async () => {
