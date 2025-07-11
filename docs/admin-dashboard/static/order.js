@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE = "http://localhost:3000/api/orders";
+const API_BASE = "https://movo-ea16.onrender.com/api/orders";
 const AUTH_HEADER = { 
   'Authorization': `Bearer ${localStorage.getItem('token')}`,
   'Content-Type': 'application/json'
