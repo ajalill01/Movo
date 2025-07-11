@@ -1,124 +1,131 @@
 
+                document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    window.location.href = 'login.html';
+  }
+  
+  });
         document.addEventListener('DOMContentLoaded', function() {
-    const productsContainer = document.getElementById('products-container');
-    const editModal = document.getElementById('edit-product-modal');
-    const editForm = document.getElementById('edit-product-form');
-    const createModal = document.getElementById('create-product-modal');
-    const createForm = document.getElementById('create-product-form');
-    const closeModalBtns = document.querySelectorAll('.close-modal');
-    const cancelEditBtn = document.getElementById('cancel-edit-btn');
-    const cancelCreateBtn = document.getElementById('cancel-create-btn');
-    const saveProductBtn = document.getElementById('save-product-btn');
-    const submitProductBtn = document.getElementById('submit-product-btn');
-    const addProductBtn = document.getElementById('add-product-btn');
-    const notificationContainer = document.getElementById('notification-container');
-    const categorySelect = document.getElementById('create-product-category');
-    
-    const API_BASE_URL = 'https://movo-ea16.onrender.com/api/products';
-    const CATEGORIES_API_URL = 'https://movo-ea16.onrender.com/api/categories';
-    let currentProductId = null;
+            const productsContainer = document.getElementById('products-container');
+            const editModal = document.getElementById('edit-product-modal');
+            const editForm = document.getElementById('edit-product-form');
+            const createModal = document.getElementById('create-product-modal');
+            const createForm = document.getElementById('create-product-form');
+            const closeModalBtns = document.querySelectorAll('.close-modal');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const cancelCreateBtn = document.getElementById('cancel-create-btn');
+            const saveProductBtn = document.getElementById('save-product-btn');
+            const submitProductBtn = document.getElementById('submit-product-btn');
+            const addProductBtn = document.getElementById('add-product-btn');
+            const notificationContainer = document.getElementById('notification-container');
+            const categorySelect = document.getElementById('create-product-category');
+            
+            const API_BASE_URL = 'https://movo-ea16.onrender.com/api/products';
+            const CATEGORIES_API_URL = 'https://movo-ea16.onrender.com/api/categories';
+            let currentProductId = null;
 
-    closeModalBtns.forEach(btn => btn.addEventListener('click', closeAllModals));
-    cancelEditBtn.addEventListener('click', closeAllModals);
-    cancelCreateBtn.addEventListener('click', closeAllModals);
-    addProductBtn.addEventListener('click', openCreateModal);
+            closeModalBtns.forEach(btn => btn.addEventListener('click', closeAllModals));
+            cancelEditBtn.addEventListener('click', closeAllModals);
+            cancelCreateBtn.addEventListener('click', closeAllModals);
+            addProductBtn.addEventListener('click', openCreateModal);
 
-    fetchProducts();
-    fetchCategories();
+            fetchProducts();
+            fetchCategories();
 
-    function showNotification(message, type = 'success') {
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.innerHTML = `
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle'}"></i>
-            <span>${message}</span>
-        `;
-        
-        notificationContainer.appendChild(notification);
-        
-        void notification.offsetWidth;
-        
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => {
-                notification.remove();
-            }, 300);
-        }, 5000);
-    }
-
-    async function fetchCategories() {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                redirectToLogin();
-                return;
+            function showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-exclamation-triangle'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                notificationContainer.appendChild(notification);
+                
+                void notification.offsetWidth;
+                
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
             }
 
-            const response = await fetch(CATEGORIES_API_URL, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            async function fetchCategories() {
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        redirectToLogin();
+                        return;
+                    }
+
+                    const response = await fetch(CATEGORIES_API_URL, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch categories');
+                    }
+
+                    const { categories } = await response.json();
+                    populateCategoryDropdown(categories);
+                } catch (error) {
+                    console.error('Error fetching categories:', error);
+                    showNotification('Failed to load categories', 'error');
                 }
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch categories');
             }
 
-            const { categories } = await response.json();
-            populateCategoryDropdown(categories);
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-            showNotification('Failed to load categories', 'error');
-        }
-    }
-
-    function populateCategoryDropdown(categories) {
-        categorySelect.innerHTML = '<option value="">Select a category</option>';
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category._id;
-            option.textContent = category.name;
-            categorySelect.appendChild(option);
-        });
-    }
-
-    async function fetchProducts() {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                redirectToLogin();
-                return;
+            function populateCategoryDropdown(categories) {
+                categorySelect.innerHTML = '<option value="">Select a category</option>';
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category._id;
+                    option.textContent = category.name;
+                    categorySelect.appendChild(option);
+                });
             }
 
-            // Changed this to match the correct endpoint
-            const response = await fetch(`${API_BASE_URL}/getallproduct?page=1&limit=10`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            async function fetchProducts() {
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        redirectToLogin();
+                        return;
+                    }
+
+                    const response = await fetch(`${API_BASE_URL}/getallproduct?page=1&limit=10`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            redirectToLogin();
+                            return;
+                        }
+                        throw new Error('Failed to fetch products');
+                    }
+
+                    const data = await response.json();
+                    displayProducts(data.data.products);
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                    productsContainer.innerHTML = `
+                        <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                            Failed to load products. Please try again later.
+                        </div>
+                    `;
+                    showNotification('Failed to load products', 'error');
                 }
-            });
-
-            if (!response.ok) {
-                if (response.status === 401) {
-                    redirectToLogin();
-                    return;
-                }
-                throw new Error('Failed to fetch products');
             }
-
-            const data = await response.json();
-            displayProducts(data.data.products);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            productsContainer.innerHTML = `
-                <div class="error-message" style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                    Failed to load products. Please try again later.
-                </div>
-            `;
-            showNotification('Failed to load products', 'error');
-        }
-    }
 
             function displayProducts(products) {
                 if (!products || products.length === 0) {
@@ -141,7 +148,7 @@
                             <div class="product-price">$${product.price?.toFixed(2) || '0.00'}</div>
                             <div class="product-meta">
                                 <span>Qty: ${product.quantity || 0}</span>
-                                <span>ID: ${product._id?.substring(0, 6)}...</span>
+                                <span>Category: ${product.category?.name || 'Uncategorized'}</span>
                             </div>
                         </div>
                         <div class="product-actions">
@@ -306,55 +313,37 @@
                 }
             });
 
-            submitProductBtn.addEventListener('click', async () => {
-                try {
-                    const token = localStorage.getItem('token');
-                    if (!token) {
-                        redirectToLogin();
-                        return;
-                    }
+    submitProductBtn.addEventListener('click', async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                redirectToLogin();
+                return;
+            }
 
-                    const name = document.getElementById('create-product-name').value;
-                    const description = document.getElementById('create-product-description').value;
-                    const price = document.getElementById('create-product-price').value;
-                    const quantity = document.getElementById('create-product-quantity').value;
-                    const category = document.getElementById('create-product-category').value;
-                    const imageInput = document.getElementById('create-product-image');
-                    
-                    if (!name || !description || !price || !category || !imageInput.files[0]) {
-                        showNotification('Please fill all required fields', 'error');
-                        return;
-                    }
+            // Get form values
+            const name = document.getElementById('create-product-name').value;
+            const description = document.getElementById('create-product-description').value;
+            const price = document.getElementById('create-product-price').value;
+            const quantity = document.getElementById('create-product-quantity').value;
+            const category = document.getElementById('create-product-category').value;
+            const imageInput = document.getElementById('create-product-image');
+            
+            // Validate required fields
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Failed to create product');
+            }
 
-                    const formData = new FormData();
-                    formData.append('name', name);
-                    formData.append('description', description);
-                    formData.append('price', price);
-                    formData.append('quantity', quantity);
-                    formData.append('category', category);
-                    formData.append('image', imageInput.files[0]);
-
-                    const response = await fetch(API_BASE_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || 'Failed to create product');
-                    }
-
-                    showNotification('Product created successfully');
-                    closeAllModals();
-                    fetchProducts();
-                } catch (error) {
-                    console.error('Error creating product:', error);
-                    showNotification(error.message || 'Failed to create product', 'error');
-                }
-            });
+            const data = await response.json();
+            showNotification('Product created successfully');
+            closeAllModals();
+            fetchProducts();
+        } catch (error) {
+            console.error('Error creating product:', error);
+            showNotification(error.message || 'Failed to create product', 'error');
+        }
+    });
 
             function redirectToLogin() {
                 window.location.href = 'login.html';
