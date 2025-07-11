@@ -502,11 +502,7 @@ nav{
 }
 @media (max-width: 404px) {
    
-    .footer-content{
-      margin-left: 0;
-  margin-right: 0;
-   width: 100%;
-  }
+ 
     .texthero p{
   font-size: 23px;
       
