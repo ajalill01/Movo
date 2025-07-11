@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const res = await fetch(`https://movo-ea16.onrender.com/api/products/${productId}`);
     const data = await res.json();
 
     if (!data.success) {
@@ -123,7 +123,7 @@ const form = document.getElementById("purchaseForm");
   };
 
   try {
-    const res = await fetch("http://localhost:3000/api/orders", {
+    const res = await fetch("https://movo-ea16.onrender.com/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

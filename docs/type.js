@@ -13,7 +13,7 @@ async function loadCategoryPage() {
 
   try {
    
-    const catRes = await fetch(`http://localhost:3000/api/categories/${categoryId}`);
+    const catRes = await fetch(`https://movo-ea16.onrender.com/api/categories/${categoryId}`);
     const catData = await catRes.json();
 
     if (!catData.success) {
@@ -59,7 +59,7 @@ async function loadCategoryPage() {
       isLoading = true;
 
       try {
-        const res = await fetch(`http://localhost:3000/api/products/getallproduct?category=${cat._id}&page=${page}`);
+        const res = await fetch(`https://movo-ea16.onrender.com/api/products/getallproduct?category=${cat._id}&page=${page}`);
         const prodData = await res.json();
         isLoading = false;
 
