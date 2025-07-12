@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadCategories() {
   try {
-    const res = await fetch('https://movo-ea16.onrender.com/api/categories');
+    const res = await fetch('https://movo-cwim.onrender.com/api/categories');
     const data = await res.json();
 
     if (data.success) {
@@ -121,7 +121,7 @@ async function loadCategories() {
 
           if (allLoaded||isLoading) return;
           isLoading = true;
-          fetch(`https://movo-ea16.onrender.com/api/products/getallproduct?category=${cat._id}&page=${page}`)
+          fetch(`https://movo-cwim.onrender.com/api/products/getallproduct?category=${cat._id}&page=${page}`)
             .then(res => res.json())
             .then(prodData => {
               isLoading = false;
