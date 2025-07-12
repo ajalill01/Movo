@@ -15,6 +15,7 @@ const app = express();
 
 
 app.use(helmet());
+app.use(express.static(path.join(__dirname, 'docs')));
 app.set('trust proxy', 1);
 app.use(express.json()); 
 app.use(cors());
