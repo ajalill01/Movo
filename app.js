@@ -8,19 +8,19 @@ const sanitize = require("./backend/middleware/sanitize");
 
 const app = express();
 
-// 1. SECURITY MIDDLEWARE (YOUR EXACT SETUP)
+// Security middleware
 app.use(helmet());
 app.set("trust proxy", 1);
 app.use(express.json()); 
 app.use(cors());
 app.use(sanitize);
 
-// 2. DYNAMIC ROUTES (YOUR EXACT ROUTES)
+// Root route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "docs", "index.html"));
 });
 
-// 3. YOUR EXACT AUTH MIDDLEWARE
+// Auth middleware
 const verifyAdminToken = (req, res, next) => {
   const publicRoutes = [
     "/docs/admin-dashboard/login.html",
@@ -48,7 +48,7 @@ const verifyAdminToken = (req, res, next) => {
   }
 };
 
-// 4. YOUR EXACT ADMIN ROUTES
+// Admin routes
 app.get("/docs/admin-dashboard/login.html", (req, res) => {
   res.sendFile(path.join(__dirname, "docs", "admin-dashboard", "login.html"));
 });
@@ -65,14 +65,14 @@ app.get("/docs/admin-dashboard/new-password.html", (req, res) => {
   res.sendFile(path.join(__dirname, "docs", "admin-dashboard", "new-password.html"));
 });
 
-// 5. YOUR EXACT API ROUTES (NO CHANGES)
+// API routes
 app.use("/api/auth", require("./backend/routes/auth-route"));
 app.use("/api/categories", require("./backend/routes/category-routes"));
 app.use("/api/products", require("./backend/routes/product-routes"));
 app.use("/api/finances", require("./backend/routes/finance-routes"));
 app.use("/api/orders", require("./backend/routes/order-routes"));
 
-// 6. SERVER START (YOUR EXACT CODE)
+// Server start
 const PORT = process.env.PORT || 3000;
 require("./backend/database/db.js")(); 
 app.listen(PORT, () => console.log("Server is running on port", PORT));
