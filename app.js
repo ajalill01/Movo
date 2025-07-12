@@ -7,6 +7,7 @@ require("dotenv").config();
 const express = require("express");
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const path = require('path');
 const sanitize = require('./backend/middleware/sanitize'); 
 const helmet = require('helmet');
 
