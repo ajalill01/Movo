@@ -67,8 +67,6 @@ function openOrderModal(orderId) {
 
 // Loading Indicators
 function showLoadingIndicator() {
-  // Implement your loading indicator logic here
-  // For example:
   document.getElementById('orders-body').innerHTML = `
     <tr>
       <td colspan="6" class="loading-indicator">
@@ -137,15 +135,15 @@ async function fetchOrderDetails(orderId) {
     itemsBody.innerHTML = (order.cartItems || []).map(item => `
       <tr>
         <td>${item.productId?.name || item.productName || 'Product not available'}</td>
-        <td>$${(item.price || 0).toFixed(2)}</td>
+        <td>${(item.price || 0).toFixed(2)}</td>
         <td>${item.quantity || 0}</td>
-        <td>$${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
+        <td>${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
       </tr>
     `).join('');
 
     const totalPrice = order.totalPrice || 0;
-    document.getElementById('subtotal-price').textContent = `$${totalPrice.toFixed(2)}`;
-    document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+    document.getElementById('subtotal-price').textContent = `${totalPrice.toFixed(2)}`;
+    document.getElementById('total-price').textContent = `${totalPrice.toFixed(2)}`;
 
     const isPending = status.toLowerCase() === 'pending';
     cancelBtn.style.display = isPending ? 'block' : 'none';
@@ -158,7 +156,6 @@ async function fetchOrderDetails(orderId) {
   }
 }
 
-
 function renderOrders(orders) {
   if (orders.length === 0) {
     ordersTable.innerHTML = `<tr><td colspan="6" class="no-orders">No orders found</td></tr>`;
@@ -170,7 +167,7 @@ function renderOrders(orders) {
       <td>#${order._id.slice(-6).toUpperCase()}</td>
       <td>${order.firstName} ${order.lastName}</td>
       <td>${new Date(order.createdAt).toLocaleDateString()}</td>
-      <td>$${order.totalPrice.toFixed(2)}</td>
+      <td>${order.totalPrice.toFixed(2)}</td>
       <td><span class="status-badge status-${order.status}">${capitalizeFirst(order.status)}</span></td>
       <td>
         <button class="action-btn view-btn" data-order-id="${order._id}">
@@ -180,7 +177,6 @@ function renderOrders(orders) {
     </tr>
   `).join('');
 
-  // Add event listeners to view buttons
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       currentOrderId = btn.dataset.orderId;
@@ -189,7 +185,6 @@ function renderOrders(orders) {
   });
 }
 
-// Update order status
 async function updateOrderStatus(newStatus) {
   if (!currentOrderId) return;
   
@@ -216,7 +211,6 @@ async function updateOrderStatus(newStatus) {
   }
 }
 
-// Pagination functions
 function goToPreviousPage() {
   if (currentPage > 1) {
     currentPage--;
@@ -237,7 +231,6 @@ function updatePaginationControls() {
   pageInfo.textContent = `Page ${currentPage}`;
 }
 
-// Helper functions
 function setActionButtonsLoading(isLoading) {
   const loadingHTML = '<i class="fas fa-spinner fa-spin"></i> Processing';
   if (isLoading) {
