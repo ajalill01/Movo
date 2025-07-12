@@ -29,10 +29,16 @@ nav{
     margin-bottom:20px ;
     margin-top: 20px;
 }
+nav a{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
 .contactlinks{
     display: flex;
     align-items: center;
     gap: 25px;
+    
 }
 .insta{
     width: 22px;
@@ -54,10 +60,9 @@ nav{
    
 }
 .logo{
-    width: 60px;
-    height: 66px;
+    width: 100px;
+    
 }
-
 .container{
     display: flex;
     align-items: center;
@@ -288,7 +293,7 @@ nav{
 }
 
 }
-@media (max-width:500px) {
+@media (max-width:600px) {
     nav{
    
     padding-left:20px ;
@@ -317,11 +322,10 @@ nav{
    
 }
 .logo{
-    width: 40px;
-    height: 40px;
+  width: 90px;
 }
 }
-@media (max-width:447px) {
+@media (max-width:440px) {
     #number{
     display: none;
 }
@@ -387,7 +391,14 @@ nav{
     
 }
 }
+@media (max-width: 340px) {
+  nav{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+    
 
+}
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -522,3 +533,23 @@ input[type="tel"] {
 .toast.show {
   opacity: 1;
 }
+.copy-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #616161c7; 
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.copy-notification.show {
+  opacity: 1;
+}
+

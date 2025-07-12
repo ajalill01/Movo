@@ -213,3 +213,25 @@ async function loadCategories() {
 }
 
 loadCategories();
+
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const copyIcon = document.getElementById("copyPhoneIcon");
+   const phoneNumber = document.getElementById("number").textContent;
+    const notify = document.getElementById("copyNotification");
+
+    copyIcon.addEventListener("click", () => {
+      navigator.clipboard.writeText(phoneNumber).then(() => {
+        notify.textContent = " تم نسخ الرقم: " + phoneNumber;
+        notify.classList.add("show");
+        setTimeout(() => notify.classList.remove("show"), 1500);
+      }).catch(err => {
+        notify.textContent = "حدث خطأ أثناء النسخ";
+        notify.classList.add("show");
+        setTimeout(() => notify.classList.remove("show"), 2500);
+        console.error(err);
+      });
+    });
+  });

@@ -124,3 +124,65 @@ async function loadCategoryPage() {
     document.getElementById('allCategories').innerHTML = '<p style="color: red;">حدث خطأ في تحميل الفئة</p>';
   }
 }
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     const copyIcon = document.getElementById("copyPhoneIcon");
+//    const phoneNumber = document.getElementById("number").textContent;
+//     const notify = document.getElementById("copyNotification");
+
+//     copyIcon.addEventListener("click", () => {
+//       navigator.clipboard.writeText(phoneNumber).then(() => {
+//         notify.textContent = " تم نسخ الرقم: " + phoneNumber;
+//         notify.classList.add("show");
+//         setTimeout(() => notify.classList.remove("show"), 1500);
+//       }).catch(err => {
+//         notify.textContent = "حدث خطأ أثناء النسخ";
+//         notify.classList.add("show");
+//         setTimeout(() => notify.classList.remove("show"), 2500);
+//         console.error(err);
+//       });
+//     });
+//   });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const copyIcon = document.getElementById("copyPhoneIcon");
+  const phoneNumberElement = document.getElementById("number");
+  const notify = document.getElementById("copyNotification");
+
+  if (copyIcon && phoneNumberElement && notify) {
+    copyIcon.addEventListener("click", () => {
+      const number = phoneNumberElement.textContent.trim();
+
+     
+      if (!navigator.clipboard) {
+        const textarea = document.createElement("textarea");
+        textarea.value = number;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand("copy");
+          notify.textContent = "تم نسخ الرقم: " + number;
+        } catch (err) {
+          notify.textContent = "حدث خطأ أثناء النسخ";
+        }
+        document.body.removeChild(textarea);
+        showNotification();
+        return;
+      }
+
+      navigator.clipboard.writeText(number).then(() => {
+        notify.textContent = "تم نسخ الرقم: " + number;
+        showNotification();
+      }).catch(() => {
+        notify.textContent = "حدث خطأ أثناء النسخ";
+        showNotification();
+      });
+    });
+  }
+
+  function showNotification() {
+    notify.classList.add("show");
+    setTimeout(() => notify.classList.remove("show"), 2000);
+  }
+});
