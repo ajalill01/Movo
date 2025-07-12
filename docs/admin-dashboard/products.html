@@ -829,7 +829,7 @@
                         <div class="product-info">
                             <h3 class="product-name">${product.name}</h3>
                             <p class="product-description">${product.description || 'No description available'}</p>
-                            <div class="product-price">$${product.price?.toFixed(2) || '0.00'}</div>
+                            <div class="product-price">${product.price?.toFixed(2) || '0.00'}</div>
                             <div class="product-meta">
                                 <span>Qty: ${product.quantity || 0}</span>
                                 <span>Category: ${product.category?.name || 'Uncategorized'}</span>
