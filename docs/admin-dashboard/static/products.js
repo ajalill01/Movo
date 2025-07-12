@@ -22,8 +22,8 @@
             const notificationContainer = document.getElementById('notification-container');
             const categorySelect = document.getElementById('create-product-category');
             
-            const API_BASE_URL = 'https://movo-ea16.onrender.com/api/products';
-            const CATEGORIES_API_URL = 'https://movo-ea16.onrender.com/api/categories';
+            const API_BASE_URL = 'https://movo-cwim.onrender.com/api/products';
+            const CATEGORIES_API_URL = 'https://movo-cwim.onrender.com/api/categories';
             let currentProductId = null;
 
             closeModalBtns.forEach(btn => btn.addEventListener('click', closeAllModals));

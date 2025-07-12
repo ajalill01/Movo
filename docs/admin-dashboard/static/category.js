@@ -13,7 +13,7 @@
             const saveCategoryBtn = document.getElementById('save-category-btn');
             const notificationContainer = document.getElementById('notification-container');
             
-            const CATEGORIES_API_URL = 'https://movo-ea16.onrender.com/api/categories';
+            const CATEGORIES_API_URL = 'https://movo-cwim.onrender.com/api/categories';
             let currentCategoryId = null;
 
             closeModalBtns.forEach(btn => btn.addEventListener('click', closeAllModals));
