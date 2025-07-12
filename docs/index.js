@@ -176,9 +176,9 @@ async function loadCategories() {
                 const scrollWidth = productContainer.scrollWidth;
                 const clientWidth = productContainer.clientWidth;
 
-                if (scrollLeft + clientWidth >= scrollWidth - 100) {
-                  loadProductPage();
-                }
+                if (scrollLeft <= 100) {
+  loadProductPage();
+}
               });
         const scrollButtons = typeWrapper.querySelectorAll(".scrollbutton");
         if (scrollButtons.length === 2) {
