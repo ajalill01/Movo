@@ -29,7 +29,8 @@ app.use(helmet({
       styleSrcAttr: ["'self'", "'unsafe-inline'"],
       fontSrc: [
         "'self'",
-        "https://fonts.gstatic.com"
+        "https://fonts.gstatic.com",
+        "https://cdnjs.cloudflare.com"
       ],
       imgSrc: [
         "'self'",
@@ -43,6 +44,7 @@ app.use(helmet({
     }
   }
 }));
+
 
 
 app.use(express.static(path.join(__dirname, 'docs')));
