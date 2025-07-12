@@ -171,6 +171,15 @@ async function loadCategories() {
             });
         }
         loadProductPage();
+                        productContainer.addEventListener("scroll", () => {
+                const scrollLeft = productContainer.scrollLeft;
+                const scrollWidth = productContainer.scrollWidth;
+                const clientWidth = productContainer.clientWidth;
+
+                if (scrollLeft + clientWidth >= scrollWidth - 100) {
+                  loadProductPage();
+                }
+              });
         const scrollButtons = typeWrapper.querySelectorAll(".scrollbutton");
         if (scrollButtons.length === 2) {
           const [leftBtn, rightBtn] = scrollButtons;
@@ -183,7 +192,7 @@ async function loadCategories() {
             }
 
            
-            loadProductPage();
+           
           });
 
           rightBtn.addEventListener("click", () => {
