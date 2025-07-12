@@ -14,7 +14,17 @@ const helmet = require('helmet');
 const app = express();
 
 
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:"],
+      connectSrc: ["'self'", "https://movo-cwim.onrender.com"], // allow API calls
+    }
+  }
+}));
 app.use(express.static(path.join(__dirname, 'docs')));
 app.set('trust proxy', 1);
 app.use(express.json()); 
