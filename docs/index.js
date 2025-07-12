@@ -171,15 +171,15 @@ async function loadCategories() {
             });
         }
         loadProductPage();
-                        productContainer.addEventListener("scroll", () => {
-                const scrollLeft = productContainer.scrollLeft;
-                const scrollWidth = productContainer.scrollWidth;
-                const clientWidth = productContainer.clientWidth;
+                     productContainer.addEventListener("scroll", () => {
+  const scrollLeft = productContainer.scrollLeft;
+  const clientWidth = productContainer.clientWidth;
 
-                if (scrollLeft <= 100) {
-  loadProductPage();
-}
-              });
+  
+  if (scrollLeft <= 100) {
+    loadProductPage();
+  }
+});
         const scrollButtons = typeWrapper.querySelectorAll(".scrollbutton");
         if (scrollButtons.length === 2) {
           const [leftBtn, rightBtn] = scrollButtons;
