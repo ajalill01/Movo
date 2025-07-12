@@ -19,15 +19,31 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      scriptSrcAttr: ["'self'", "'unsafe-inline'"],       // يسمح inline JS events
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      styleSrcAttr: ["'self'", "'unsafe-inline'"],        // يسمح inline CSS attributes
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
-      connectSrc: ["'self'", "https://movo-cwim.onrender.com"]
+      scriptSrcAttr: ["'self'", "'unsafe-inline'"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "https://cdnjs.cloudflare.com"
+      ],
+      styleSrcAttr: ["'self'", "'unsafe-inline'"],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com"
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://res.cloudinary.com"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://movo-cwim.onrender.com"
+      ]
     }
   }
 }));
+
 
 app.use(express.static(path.join(__dirname, 'docs')));
 app.set('trust proxy', 1);
