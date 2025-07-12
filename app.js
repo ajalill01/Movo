@@ -19,6 +19,14 @@ app.use(express.json());
 app.use(cors());
 app.use(sanitize);
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'docs'))); 
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'docs', 'index.html')); 
+});
+
+
 // const categoryRoutes = require('./backend/routes/category-routes');
 const financeRoutes = require('./backend/routes/finance-routes');
 const orderRoutes = require('./backend/routes/order-routes');
