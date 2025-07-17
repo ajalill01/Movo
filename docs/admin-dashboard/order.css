@@ -749,3 +749,38 @@ body {
         font-size: 0.9rem;
     }
 }
+
+
+.delete-btn {
+    background-color: #dc3545; /* Slightly different red for distinction */
+    color: var(--white-color);
+}
+
+/* Update modal actions for better mobile layout */
+.modal-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-actions {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    .modal-actions button {
+        flex: 1 1 45%; /* Two buttons per row */
+        min-width: 120px;
+    }
+    .modal-actions .back-btn {
+        order: 1;
+        flex-basis: 100%; /* Full width for back button */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-actions button {
+        flex: 1 1 100%; /* Stack vertically on very small screens */
+    }
+}

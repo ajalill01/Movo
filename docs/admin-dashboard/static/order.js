@@ -11,6 +11,7 @@ const closeModalBtn = document.querySelector('.close-modal');
 const backBtn = document.getElementById('back-btn');
 const cancelBtn = document.getElementById('cancel-btn');
 const confirmBtn = document.getElementById('confirm-btn');
+const deleteBtn = document.getElementById('delete-btn');
 const prevPageBtn = document.getElementById('prev-page');
 const nextPageBtn = document.getElementById('next-page');
 const pageInfo = document.getElementById('page-info');
@@ -38,6 +39,7 @@ function setupEventListeners() {
   document.addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
   
   cancelBtn.addEventListener('click', () => updateOrderStatus('canceled'));
+      document.getElementById('delete-btn').addEventListener('click', deleteOrder);
   confirmBtn.addEventListener('click', () => updateOrderStatus('confirmed'));
   
   prevPageBtn.addEventListener('click', goToPreviousPage);
@@ -232,18 +234,19 @@ function updatePaginationControls() {
 }
 
 function setActionButtonsLoading(isLoading) {
-  const loadingHTML = '<i class="fas fa-spinner fa-spin"></i> Processing';
-  if (isLoading) {
-    cancelBtn.disabled = true;
-    confirmBtn.disabled = true;
-    cancelBtn.innerHTML = loadingHTML;
-    confirmBtn.innerHTML = loadingHTML;
-  } else {
-    cancelBtn.disabled = false;
-    confirmBtn.disabled = false;
-    cancelBtn.innerHTML = '<i class="fas fa-times"></i> Cancel Order';
-    confirmBtn.innerHTML = '<i class="fas fa-check"></i> Confirm Order';
-  }
+    [backBtn, deleteBtn, cancelBtn, confirmBtn].forEach(btn => {
+        if (!btn) return;
+        btn.disabled = isLoading;
+        if (isLoading && btn.id !== 'back-btn') {
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Processing`;
+        } else {
+            // Reset to original content
+            if (btn.id === 'delete-btn') btn.innerHTML = `<i class="fas fa-trash-alt"></i> Delete`;
+            if (btn.id === 'cancel-btn') btn.innerHTML = `<i class="fas fa-times"></i> Cancel Order`;
+            if (btn.id === 'confirm-btn') btn.innerHTML = `<i class="fas fa-check"></i> Confirm Order`;
+            if (btn.id === 'back-btn') btn.innerHTML = `<i class="fas fa-arrow-left"></i> Back`;
+        }
+    });
 }
 
 function showNotification(message, type) {
@@ -259,4 +262,47 @@ function showNotification(message, type) {
 
 function capitalizeFirst(str) {
   return str?.charAt(0).toUpperCase() + str?.slice(1) || '';
+}
+
+
+async function deleteOrder() {
+    if (!currentOrderId) return;
+    
+    try {
+        // Confirm before deleting
+        const confirmed = await showConfirmationDialog(
+            'Delete Order',
+            'Are you sure you want to permanently delete this order? This action cannot be undone.'
+        );
+        
+        if (!confirmed) return;
+
+        setActionButtonsLoading(true);
+        
+        const response = await fetch(`${API_BASE}/${currentOrderId}`, {
+            method: 'DELETE',
+            headers: AUTH_HEADER
+        });
+        
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to delete order');
+        }
+
+        showNotification('Order deleted successfully', 'success');
+        closeModal();
+        loadOrders();
+    } catch (error) {
+        showNotification(`Error: ${error.message}`, 'error');
+        console.error('Delete error:', error);
+    } finally {
+        setActionButtonsLoading(false);
+    }
+}
+
+function showConfirmationDialog(title, message) {
+    return new Promise(resolve => {
+        // You could use a custom modal here, but for simplicity:
+        resolve(window.confirm(`${title}\n\n${message}`));
+    });
 }
